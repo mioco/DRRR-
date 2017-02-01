@@ -15,8 +15,10 @@ class Main extends Component{
   render() {
     return(
       <div>
-        <Header name={ this.props.name } logout={ this.props.logout }/>
-        <Message addTalk={ this.props.addTalk }/>
+        <div className="message-wrap">
+          <Header name={ this.props.name } logout={ this.props.logout }/>
+          <Message addTalk={ this.props.addTalk }/>
+        </div>
         <Talks talks={ this.props.talks }/>
         
         <audio ref='sound' src="/images/effect.mp3" hidden></audio>
@@ -48,7 +50,7 @@ class Message extends Component{
   }
   render() {
     return (
-      <div className="message-wrap">
+      <div>
         <div className="container">
           <form action="" ref="msgForm" method="post" onSubmit={ this.addTalk.bind(this) }>
             <textarea ref="msgBox" name="message" className="form-control"></textarea>

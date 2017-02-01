@@ -13,14 +13,16 @@ const io = require('socket.io')();
 //socket
 io.on('connect', (socket) => {
 
-  socket.on('login', (name) => {
-    client.lpush('talks', name, (err,res) => {
+  socket.on('connectStatus', (msg) => {
+    tobj = JSON.parse(msg);
+    client.lpush('talks', msg, (err,res) => {
       send = JSON.stringify({
         key: res,
-        name: name
+        name: tobj.name,
+        status: tobj.status
       })      
       console.log(send)
-      io.sockets.emit('join', send)
+      io.sockets.emit('connectStatus', send)
     })
     
   })

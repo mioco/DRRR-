@@ -28,7 +28,11 @@ class App extends Component{
   }
 
   addName(name) {
-    socket.emit('login', name);
+    let send = JSON.stringify({
+      name: name,
+      status: 1
+    })
+    socket.emit('connectStatus', send);
     if(!cookie.load('name')) cookie.save('name', name)
     this.setState({ isLogin: true })
   }
@@ -39,7 +43,12 @@ class App extends Component{
     sound.play();
     sound.addEventListener('timeupdate', function(){
       if(sound.currentTime>=5) sound.pause();
-    }, false)    
+    }, false)   
+    let send = JSON.stringify({
+      name: cookie.load('name'),
+      status: 0
+    })
+    socket.emit('connectStatus', send);
     setTimeout(() => {
       cookie.remove('name');
       this.setState({ isLogin: false });
@@ -59,14 +68,18 @@ class App extends Component{
     socket.on('connect', () => {
       
     })
-    socket.on('join', (msg) => {
+    socket.on('connectStatus', (msg) => {
       console.log(msg)
       msg = JSON.parse(msg);
-      talks.unshift({ key: msg.key, type: 'join', name: msg.name });
+      talks.unshift({ 
+        key: msg.key, 
+        type: 'connectStatus', 
+        name: msg.name,
+        status: msg.status
+      });
       this.setState({
         talks: talks
       })
-      
     })
     socket.on('talk', (msg) => {
       msg = JSON.parse(msg);
@@ -75,6 +88,7 @@ class App extends Component{
         talks: talks
       })
     })
+
   }
   render() {
     let content = this.state.isLogin ? 

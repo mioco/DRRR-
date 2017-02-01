@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'iconfont';  /* project id 226542 */
+  src: url('//at.alicdn.com/t/font_vyul216d2bmon7b9.eot');
+  src: url('//at.alicdn.com/t/font_vyul216d2bmon7b9.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_vyul216d2bmon7b9.woff') format('woff'),
+  url('//at.alicdn.com/t/font_vyul216d2bmon7b9.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_vyul216d2bmon7b9.svg#iconfont') format('svg');
+}
 body{
   overflow-x: hidden;
   background-color: #000;
@@ -10,12 +18,12 @@ button, input, select, textarea {
     font-size: inherit;
     line-height: inherit;
 }
-.drrr-my {
-  background-image: url('../public/images/my.svg');
-}
-
-.drrr-talk {
-  background-image: url('../public/images/talk.svg');
+.iconfont{
+  font-family:"iconfont" !important;
+  font-size:16px;font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
 }
 //Not login
 .logo-wrapper {
@@ -87,9 +95,51 @@ form .login-form{
 }
 .message-wrap {
   background: #fbfbfb;
-  padding: 10px 0;
+  padding: 5px 0;
   transition: all 1s ease;
+  .message-header {
+    box-shadow: 0 2px 2px #ddd;
+    padding-bottom: 3px;
+    &>div{
+      display: inline-block;
+      cursor: default;
+    }
+    .header-my {
+      float: right;
+      margin-right: .7em;
+      i { 
+        color: #000;
+      }
+      ul {
+        &:before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: -1.2em;
+          right: .35em;
+          width: 0;
+          height: 0;
+          overflow: hidden;
+          border-width: 0.6em;
+          border-color: transparent transparent #222 transparent;
+          border-style: solid dashed dashed dashed;
+        }
+        color: #fff;
+        position: absolute;
+        right: .35em;
+        background: #222;
+        padding: 0;
+        li {
+          list-style: none;
+          padding: .5em 1em;
+          border-bottom: 1px solid #aaa;
+          cursor: default;
+        }
+      }
+    }
+  }
   .container {
+    margin-top: .7em;
     form{
       padding: 0 15px;
       .form-control {

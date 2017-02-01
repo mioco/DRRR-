@@ -8,9 +8,9 @@ class Talks extends Component {
     let nodeList = [];
     this.props.talks.forEach( (talk) => {
       switch(talk.type) {
-        case 'join':
-          console.log(talk)
-          nodeList.push(<JoinSystem key={ talk.key } name={ talk.name }/>);
+        case 'connectStatus':
+          let status = talk.status ? '加入' : '离开';
+          nodeList.push(<JoinSystem key={ talk.key } name={ talk.name } status={ status }/>);
           break;
         case 'talk':
           nodeList.push(<Talk key={ talk.key } name={ talk.name } talks={ talk.talk }/>);
@@ -52,7 +52,7 @@ class JoinSystem extends Component {
   render() {
     return (
       <div className="system">
-        ►► @ <span>{ this.props.name }</span> 加入房间
+        ►► @ <span>{ this.props.name }</span> { this.props.status }房间
       </div>
     )
   }
