@@ -1,20 +1,46 @@
 const redis = require('redis'),
-      redisClient = redis.createClient({auth_pass: 'redis'});
+      client = redis.createClient({auth_pass: 'redis'});
 
 let sub = (c) => {
-  redisClient.subscribe(c, e => {
-    console.log('channel:' + c);
-  })
+//  client.subscribe(c, e => {
+//    console.log('channel:' + c);
+//  })
 }
 sub();
 
 const io = require('socket.io')();
 
 //socket
-io.on('connection', (socket) => {
-  redisClient.on('message', (err, msg) => {
+io.on('connect', (socket) => {
+
+  socket.on('login', (name) => {
+    client.lpush('talks', name, (err,res) => {
+      send = JSON.stringify({
+        key: res,
+        name: name
+      })      
+      console.log(send)
+      io.sockets.emit('join', send)
+    })
+    
+  })
+
+  socket.on('talk', (text) => {
+    tobj = JSON.parse(text);
+    client.lpush('talks', text, (err,res) => {
+      send = JSON.stringify({
+        key: res,
+        talk: tobj.talk,
+        name: tobj.name
+      })      
+      io.sockets.emit('talk', send)
+    })
+       
+  })
+  client.on('message', (err, msg) => {
     socket.emit('talks', msg);
   })
+  // client.subscribe('talks');
 })
 
 module.exports = io;

@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import Talks from './Talks';
-import io from 'socket.io-client';
+import Header from './Header';
 
 class Main extends Component{
+  
+  componentDidMount() {
+    let sound = this.refs.sound;
+    sound.currentTime = 1.8;
+    sound.play();
+    sound.addEventListener('timeupdate', function(){
+      if(sound.currentTime>=2.5) sound.pause();
+    }, false)
+  }
   render() {
     return(
       <div>
-        <Message textHandle={ this.props.textHandle }/>
+        <Header name={ this.props.name } logout={ this.props.logout }/>
+        <Message addTalk={ this.props.addTalk }/>
         <Talks talks={ this.props.talks }/>
+        
+        <audio ref='sound' src="/images/effect.mp3" hidden></audio>
       </div>
     )
   }
@@ -17,36 +29,28 @@ class Message extends Component{
   constructor(props){
     super(props);
   }
-  textHandle(e) {
+  addTalk(e) {
     e.preventDefault();
     let msg = e.target.message.value;
     if(msg.replace(/(^\s*)|(\s*$)/g, "") == "") {
       this.refs.msgBox.focus();
       return false;
     }
-    if(this.props.textHandle(msg)) {
+    if(this.props.addTalk(msg)) {
       let sound = this.refs.sound;
       sound.currentTime = 0;
       sound.play();
       sound.addEventListener('timeupdate', function(){
         if(sound.currentTime>=1) sound.pause();
-      }, false)
+      }, false)    
       this.refs.msgForm.reset();
     }
   }
   render() {
-    let socket = io('http://localhost:3000');
-    socket.on('connect', () => {
-      console.log('connecion success')
-    })
-
-    socket.on('talks', (msg) => {
-      console.log(msg)
-    })
     return (
       <div className="message-wrap">
         <div className="container">
-          <form action="" ref="msgForm" method="post" onSubmit={ this.textHandle.bind(this) }>
+          <form action="" ref="msgForm" method="post" onSubmit={ this.addTalk.bind(this) }>
             <textarea ref="msgBox" name="message" className="form-control"></textarea>
             <button type="submit">POST!</button>
           </form>

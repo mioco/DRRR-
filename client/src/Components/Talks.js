@@ -5,14 +5,23 @@ class Talks extends Component {
     super(props);
   }
   render() {
-    let talkList = [];
-    this.props.talks.forEach( (talks) => {
-      talkList.push(<Talk key={ talks.key } username={ talks.username } text={ talks.text }/>);
+    let nodeList = [];
+    this.props.talks.forEach( (talk) => {
+      switch(talk.type) {
+        case 'join':
+          console.log(talk)
+          nodeList.push(<JoinSystem key={ talk.key } name={ talk.name }/>);
+          break;
+        case 'talk':
+          nodeList.push(<Talk key={ talk.key } name={ talk.name } talks={ talk.talk }/>);
+          break;
+        default:
+          break;
+      }
     })
     return (
       <div className="container">
-        { talkList }
-        <JoinSystem />
+        { nodeList }
       </div>
     )
   }
@@ -24,14 +33,14 @@ class Talk extends Component {
       <dl className="talk">
         <dt className="dropdown">
           <div className="avatar"></div>
-          <div className="name">{ this.props.username }</div>
+          <div className="name">{ this.props.name }</div>
         </dt>
         <dd className="bounce">
           <div>
             <div className="tail-wrap">
               <div className="tail-mask"></div>
             </div>
-            <p className="text-wrap">{ this.props.text }</p>
+            <p className="text-wrap">{ this.props.talks }</p>
           </div>
         </dd>
       </dl>
@@ -43,7 +52,7 @@ class JoinSystem extends Component {
   render() {
     return (
       <div className="system">
-        ►► @ <span>osyo</span> 加入房间
+        ►► @ <span>{ this.props.name }</span> 加入房间
       </div>
     )
   }

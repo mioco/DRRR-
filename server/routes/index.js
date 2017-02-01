@@ -1,25 +1,19 @@
 var express = require('express');
 var router = express.Router();
-
+var redis = require('redis'),
+    client = redis.createClient({auth_pass: 'redis'});
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  //是否登录，否返回isLogin false
-  let isLogin = {};
-  if(!req.session) isLogin.isLogin = false;
-  else isLogin.isLogin = true;
-  res.render('index', isLogin);
+  res.render('index');
 });
-
-router.post('/addTalk', (req, res, next) => {
-  res.send('is ok')
-})
 
 router.get('/initTalks', (req, res, next) => {
   //从redis获取数据，返回talks
 })
 
-router.post('/addTalk', (req, res, next) => {
-  res.send('is ok')
+router.get('/isLogin', (req, res, next) => {
+  if(!req.session || !req.session.name) res.send({isLogin: false})
+  else res.send({isLogin: true, name: req.session.name})
 })
 
 module.exports = router;

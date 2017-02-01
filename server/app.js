@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-  store: new RedisStore(options),
+  store: new redisStore(),
   resave: true,
   saveUninitialized: false
 }))
