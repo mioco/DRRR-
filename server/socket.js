@@ -12,7 +12,6 @@ const io = require('socket.io')();
 
 //socket
 io.on('connect', (socket) => {
-
   socket.on('connectStatus', (msg) => {
     tobj = JSON.parse(msg);
     client.lpush('talks', msg, (err,res) => {
@@ -21,7 +20,6 @@ io.on('connect', (socket) => {
         name: tobj.name,
         status: tobj.status
       })      
-      console.log(send)
       io.sockets.emit('connectStatus', send)
     })
     

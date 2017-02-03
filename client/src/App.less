@@ -6,6 +6,12 @@
   url('//at.alicdn.com/t/font_vyul216d2bmon7b9.ttf') format('truetype'),
   url('//at.alicdn.com/t/font_vyul216d2bmon7b9.svg#iconfont') format('svg');
 }
+
+.calc(@val) {
+  -webkit-height: calc(@val);
+     -moz-height: calc(@val);
+          height: calc(@val);
+}
 body{
   overflow-x: hidden;
   background-color: #000;
@@ -89,58 +95,10 @@ form .login-form{
 //Main
 
 .container {
-  width: 60vw;
+  width: 60%;
   margin: 0 auto;
-  min-width: 400px;
-}
-.message-wrap {
-  background: #fbfbfb;
-  padding: 5px 0;
-  transition: all 1s ease;
-  .message-header {
-    box-shadow: 0 2px 2px #ddd;
-    padding-bottom: 3px;
-    &>div{
-      display: inline-block;
-      cursor: default;
-    }
-    .header-my {
-      float: right;
-      margin-right: .7em;
-      i { 
-        color: #000;
-      }
-      ul {
-        &:before {
-          content: '';
-          display: block;
-          position: absolute;
-          top: -1.2em;
-          right: .35em;
-          width: 0;
-          height: 0;
-          overflow: hidden;
-          border-width: 0.6em;
-          border-color: transparent transparent #222 transparent;
-          border-style: solid dashed dashed dashed;
-        }
-        color: #fff;
-        position: absolute;
-        right: .35em;
-        background: #222;
-        padding: 0;
-        li {
-          list-style: none;
-          padding: .5em 1em;
-          border-bottom: 1px solid #aaa;
-          cursor: default;
-        }
-      }
-    }
-  }
-  .container {
-    margin-top: .7em;
-    form{
+  min-width: 500px;
+  form{
       padding: 0 15px;
       .form-control {
       font-size: 14px;
@@ -174,7 +132,59 @@ form .login-form{
         outline: 0;
         transition: all 1s ease;
       }
-    }    
+    } 
+}
+.message-wrap {
+  background: #fbfbfb;
+  padding: 5px 0;
+  transition: all 1s ease;
+  .message-header {
+    box-shadow: 0 2px 2px #ddd;
+    padding-bottom: 3px;
+    &>div{
+      display: inline-block;
+      cursor: default;
+      &>i{ color: #000; }
+    }
+    .header-talkTo {
+      margin-left: .7em;
+    }
+    .header-my {
+      float: right;
+      margin-right: .7em;
+      ul {
+        &:before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: -1.2em;
+          right: .35em;
+          width: 0;
+          height: 0;
+          overflow: hidden;
+          border-width: 0.6em;
+          border-color: transparent transparent #222 transparent;
+          border-style: solid dashed dashed dashed;
+        }
+        color: #fff;
+        position: absolute;
+        right: .35em;
+        background: #222;
+        padding: 0;
+        li {
+          list-style: none;
+          padding: .5em 1em;
+          border-bottom: 1px solid #aaa;
+          cursor: default;
+          &:hover{
+            background: #444;
+          }
+        }
+      }
+    }
+  }
+  .container {
+    margin-top: .7em;   
   }
 }
 
@@ -272,4 +282,41 @@ form .login-form{
   clear: both;
 }
 
+
+//private box
+.privateBox {
+  position: fixed;
+  z-index: 2;
+  &:hover>.hp_wrap {
+    background: rgba(255,255,255,.9);
+  }
+  .hp_wrap {
+    background: rgba(255,255,255,.8);
+    .privateToggle {
+      height: 2em;
+      box-shadow: 0 2px 2px #ddd;
+      margin-bottom: 10px;
+      a{
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: block;
+        float: left;
+        margin-left: .5em;
+        margin-top: calc(1em - .25em);
+      }
+    }
+  }
+  &:hover>.talks_wrap {
+    border-color: rgba(255,255,255,.9);
+  }
+  .talks_wrap {
+    background-color: rgba(10, 13, 18, 0.7);
+    border: solid 3px rgba(255, 255, 255, .8);
+    width: 100%;
+    .calc(~"100% - 129px");
+    box-sizing: border-box;
+    background-clip: padding-box;
+  }
+}
 @import './App_mobile.less';

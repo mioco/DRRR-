@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Talk from './Talk';
 class Talks extends Component {
   constructor(props) {
     super(props);
@@ -27,27 +27,6 @@ class Talks extends Component {
   }
 }
 
-class Talk extends Component {
-  render() {
-    return (
-      <dl className="talk">
-        <dt className="dropdown">
-          <div className="avatar"></div>
-          <div className="name">{ this.props.name }</div>
-        </dt>
-        <dd className="bounce">
-          <div>
-            <div className="tail-wrap">
-              <div className="tail-mask"></div>
-            </div>
-            <p className="text-wrap">{ this.props.talks }</p>
-          </div>
-        </dd>
-      </dl>
-    )
-  }
-}
-
 class JoinSystem extends Component {
   render() {
     return (
@@ -57,4 +36,5 @@ class JoinSystem extends Component {
     )
   }
 }
+
 export default Talks;

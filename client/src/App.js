@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import NotLogin from './Components/NotLogin';
 import Main from './Components/Main';
 import './App.less';
 import io from 'socket.io-client';
 import 'whatwg-fetch';
 import cookie from 'react-cookie';
-const socket = io('http://localhost:3000');
+// import { initTalks, addTalk, addName, logout } from './Action';
+const socket = io(window.location.host);
+
 class App extends Component{
   constructor(props) {
     super(props);
     this.state = {
       isLogin: false,
-      talks: []
+      talks: [],
+      pTalks: []
     }
     this.addName = this.addName.bind(this);
     this.addTalk = this.addTalk.bind(this);
     this.logout = this.logout.bind(this);
   }
-
+  initTalks() {
+    let url = '//drrr.osyox.com'
+    fetch()
+  }
   addTalk(text) {
     socket.emit('talk', JSON.stringify({
       talk: text,
@@ -62,14 +67,11 @@ class App extends Component{
       this.setState({
         isLogin: true,
         name: cookie.load('name')
+        // talks: this.initTalks()
       })
     }
     let talks = this.state.talks;
-    socket.on('connect', () => {
-      
-    })
     socket.on('connectStatus', (msg) => {
-      console.log(msg)
       msg = JSON.parse(msg);
       talks.unshift({ 
         key: msg.key, 
@@ -93,6 +95,7 @@ class App extends Component{
   render() {
     let content = this.state.isLogin ? 
     <Main 
+      pTalks={ this.state.pTalks }
       talks={ this.state.talks } 
       addTalk={ this.addTalk }
       logout={ this.logout }

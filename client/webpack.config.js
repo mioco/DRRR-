@@ -1,6 +1,9 @@
 module.exports = {
   entry: './index.js',
-
+  externals: {
+     'react': 'React',
+     'react-dom': 'ReactDOM'
+  },
   output: {
     filename: 'main.js',
     path: '../server/public/javascripts/',
