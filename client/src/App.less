@@ -6,7 +6,6 @@
   url('//at.alicdn.com/t/font_vyul216d2bmon7b9.ttf') format('truetype'),
   url('//at.alicdn.com/t/font_vyul216d2bmon7b9.svg#iconfont') format('svg');
 }
-
 .calc(@val) {
   -webkit-height: calc(@val);
      -moz-height: calc(@val);
@@ -145,6 +144,33 @@ form .login-form{
       display: inline-block;
       cursor: default;
       &>i{ color: #000; }
+      &>ul{   
+        &:before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: -1.2em;
+          width: 0;
+          height: 0;
+          overflow: hidden;
+          border-width: 0.6em;
+          border-color: transparent transparent #222 transparent;
+          border-style: solid dashed dashed dashed;
+        }     
+        color: #fff;
+        position: absolute;
+        background: #222;
+        padding: 0;
+        li {
+          list-style: none;
+          padding: .5em 1em;
+          border-bottom: 1px solid #aaa;
+          cursor: default;
+          &:not(#header-my-name):hover{
+            background: #444;
+          }
+        }
+      }
     }
     .header-talkTo {
       margin-left: .7em;
@@ -154,32 +180,9 @@ form .login-form{
       margin-right: .7em;
       ul {
         &:before {
-          content: '';
-          display: block;
-          position: absolute;
-          top: -1.2em;
           right: .35em;
-          width: 0;
-          height: 0;
-          overflow: hidden;
-          border-width: 0.6em;
-          border-color: transparent transparent #222 transparent;
-          border-style: solid dashed dashed dashed;
-        }
-        color: #fff;
-        position: absolute;
+        }        
         right: .35em;
-        background: #222;
-        padding: 0;
-        li {
-          list-style: none;
-          padding: .5em 1em;
-          border-bottom: 1px solid #aaa;
-          cursor: default;
-          &:hover{
-            background: #444;
-          }
-        }
       }
     }
   }
@@ -282,41 +285,6 @@ form .login-form{
   clear: both;
 }
 
-
-//private box
-.privateBox {
-  position: fixed;
-  z-index: 2;
-  &:hover>.hp_wrap {
-    background: rgba(255,255,255,.9);
-  }
-  .hp_wrap {
-    background: rgba(255,255,255,.8);
-    .privateToggle {
-      height: 2em;
-      box-shadow: 0 2px 2px #ddd;
-      margin-bottom: 10px;
-      a{
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        display: block;
-        float: left;
-        margin-left: .5em;
-        margin-top: calc(1em - .25em);
-      }
-    }
-  }
-  &:hover>.talks_wrap {
-    border-color: rgba(255,255,255,.9);
-  }
-  .talks_wrap {
-    background-color: rgba(10, 13, 18, 0.7);
-    border: solid 3px rgba(255, 255, 255, .8);
-    width: 100%;
-    .calc(~"100% - 129px");
-    box-sizing: border-box;
-    background-clip: padding-box;
-  }
-}
-@import './App_mobile.less';
+@import './Style/Private.less';
+@import './Style/App_mobile.less';
+@import './Style/Animation.less';

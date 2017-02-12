@@ -1,0 +1,63 @@
+
+//private box
+.privateBox {
+  position: fixed;
+  z-index: 2;
+  box-shadow: 0 0 10px rgba(180, 180, 180, 0.8);
+  &:hover>.hp_wrap {
+    background: rgba(255,255,255,.9);
+  }
+  .hp_wrap {
+    background: rgba(255,255,255,.8);
+    .privateToggle {
+      height: 2em;
+      box-shadow: 0 2px 2px #ddd;
+      margin-bottom: 10px;
+      a{
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: block;
+        float: left;
+        margin-left: .5em;
+        margin-top: calc(1em - .25em);
+      }
+    }
+  }
+  &:hover>.talks_wrap {
+    border-color: rgba(255,255,255,.9);
+  }
+  .talks_wrap {
+    background-color: rgba(10, 13, 18, 0.7);
+    border: solid 3px rgba(255, 255, 255, .8);
+    width: 100%;
+    .calc(~"100% - 129px");
+    box-sizing: border-box;
+    background-clip: padding-box;
+  }
+}
+
+.resizeY {
+  width: 100%;
+  height: 5px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  cursor: s-resize;
+}
+.resizeX{
+  width: 5px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: e-resize;
+}
+.resizeXY{
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: nw-resize;
+}

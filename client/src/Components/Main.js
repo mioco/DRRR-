@@ -5,8 +5,17 @@ import Private from './Private';
 import Message from './SendForm';
 
 class Main extends Component{
-  
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pDisplay: false
+    }
+    this.privateToggle = this.privateToggle.bind(this);
+  }
+  privateToggle() {
+    this.setState({ pDisplay: !this.state.pDisplay })
+  }
+  componentDidUpdateMount() {
     let sound = this.refs.sound;
     sound.currentTime = 1.8;
     sound.play();
@@ -15,12 +24,43 @@ class Main extends Component{
     }, false)
   }
   render() {
+    let talks = [
+      {
+        key: 1,
+        name: 'abc',
+        isReaded: false
+      },
+      {
+        key: 2,
+        name: 'hahha',
+        isReaded: true
+      }
+    ]
+    let privateTalks = [];
+    talks.forEach((pTalk) => {
+      let pDisplay = pTalk.key;
+      privateTalks.push(<Private
+        key={ pTalk.key }
+        pDisplay={ this.state.pDisplay } 
+        talks={ this.props.pTalks }
+        pDisplay={ this.state.pDisplay }
+      />)
+    })
     return(
       <div>
-        <Private talks={ this.props.pTalks }/>
+        { privateTalks }
         <div className="message-wrap">
-          <Header name={ this.props.name } logout={ this.props.logout }/>
-          <Message addTalk={ this.props.addTalk }/>
+          <Header 
+            name={ this.props.name } 
+            logout={ this.props.logout }
+            privateTalks={ talks }
+            privateToggle={ this.privateToggle }
+          />
+          <Message 
+            addTalk={ this.props.addTalk }
+            privateToggle={ this.privateToggle }
+            privateTalks={ this.props.privateTalks }
+          />
         </div>
         <Talks talks={ this.props.talks }/>
         
