@@ -51,9 +51,9 @@ class Header extends Component{
       )
     })
     return(
-      <div className="message-header">
+      <header className="message-header">
         <div className="header-talkTo">
-          <i className="iconfont" onClick={this.onToggle.bind(this, 'privateDisplay')}>&#xe602;</i>
+          <i className="iconfont" style={{color: '#ddd'}}>&#xe602;</i>
           <ul 
             style={{display: this.state.privateDisplay ? 'block' : 'none'}}
             ref='privateDropdown'
@@ -73,7 +73,7 @@ class Header extends Component{
             <li onClick={ this.props.logout }>LOGOUT</li>
           </ul>
         </div>
-      </div>
+      </header>
     )
   }
 }

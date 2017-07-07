@@ -1,5 +1,5 @@
 const redis = require('redis'),
-      client = redis.createClient({auth_pass: 'redis'});
+      client = redis.createClient();
 
 let sub = (c) => {
 //  client.subscribe(c, e => {
@@ -9,7 +9,6 @@ let sub = (c) => {
 sub();
 
 const io = require('socket.io')();
-
 //socket
 io.on('connect', (socket) => {
   socket.on('connectStatus', (msg) => {

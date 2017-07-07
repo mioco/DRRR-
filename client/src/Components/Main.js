@@ -15,14 +15,6 @@ class Main extends Component{
   privateToggle() {
     this.setState({ pDisplay: !this.state.pDisplay })
   }
-  componentDidUpdateMount() {
-    let sound = this.refs.sound;
-    sound.currentTime = 1.8;
-    sound.play();
-    sound.addEventListener('timeupdate', function(){
-      if(sound.currentTime>=2.5) sound.pause();
-    }, false)
-  }
   render() {
     let talks = [
       {
@@ -64,7 +56,6 @@ class Main extends Component{
         </div>
         <Talks talks={ this.props.talks }/>
         
-        <audio ref='sound' src="/images/effect.mp3" hidden></audio>
       </div>
     )
   }

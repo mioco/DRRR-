@@ -1,5 +1,5 @@
 const redis = require('redis'),
-      redisClient = redis.createClient({auth_pass: 'redis'});
+      redisClient = redis.createClient();
 
 redisClient.on("error", function (err) {
     console.log("Error " + err);

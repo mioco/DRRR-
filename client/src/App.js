@@ -5,8 +5,10 @@ import './App.less';
 import io from 'socket.io-client';
 import 'whatwg-fetch';
 import cookie from 'react-cookie';
+import { audioPlay } from './common.js';
 // import { initTalks, addTalk, addName, logout } from './Action';
-const socket = io(window.location.host);
+const socketUrl = window.location.hostname + ':3000';
+const socket = io(socketUrl);
 
 class App extends Component{
   constructor(props) {
@@ -21,7 +23,7 @@ class App extends Component{
     this.logout = this.logout.bind(this);
   }
   initTalks() {
-    let url = '//drrr.osyox.com'
+    let url = '//drrr.osyox.com:3000'
     fetch()
   }
   addTalk(text) {
@@ -43,12 +45,7 @@ class App extends Component{
   }
 
   logout() {
-    let sound = this.refs.sound;
-    sound.currentTime = 3.5;
-    sound.play();
-    sound.addEventListener('timeupdate', function(){
-      if(sound.currentTime>=5) sound.pause();
-    }, false)   
+    audioPlay(this.refs.sound, 3.5) 
     let send = JSON.stringify({
       name: cookie.load('name'),
       status: 0
@@ -104,7 +101,7 @@ class App extends Component{
     <NotLogin addName={ this.addName }/>;
     return(
       <div>
-        {content}        
+        {content}
         <audio ref='sound' src="/images/effect.mp3" hidden></audio>
       </div>
     )
