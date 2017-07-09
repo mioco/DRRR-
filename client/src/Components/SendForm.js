@@ -10,7 +10,6 @@ class Message extends Component{
       lock: true,
       user: this.props.user || []
     }
-    console.log('user: ', this.state.user)
   }
   addTalk(e) {
     e.preventDefault();

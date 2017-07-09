@@ -52,19 +52,18 @@ class App extends Component{
       status: 0
     })
     socket.emit('connectStatus', send);
+    cookie.remove('name')
     setTimeout(() => {
-      cookie.remove('name');
-      
       this.setState({
-        isLogin: false,
         talks: [],
-        pTalks: []
-      });
-    },1000)
+        pTalks: [],
+        isLogin: false
+      })
+    }, 500);
   }
 
   componentWillMount() {
-    if(!cookie.load('name')){this.setState({ isLogin: false })}
+    if(!cookie.load('name')){ this.setState({ isLogin: false }) }
     else {
       this.setState({
         isLogin: true,
@@ -73,24 +72,24 @@ class App extends Component{
       })
     }
     let talks = this.state.talks;
-    socket.on('connectStatus', (msg) => {
+    socket.on('connectStatus', msg => {
       msg = JSON.parse(msg);
-      talks.unshift({ 
+      let talk = { 
         key: msg.key, 
         type: 'connectStatus', 
         name: msg.name,
         status: msg.status
-      });
+      };
       this.setState({
-        talks: talks,
+        talks: [talk, ...this.state.talks],
         user: msg.user
       })
     })
-    socket.on('talk', (msg) => {
+    socket.on('talk', msg => {
       msg = JSON.parse(msg);
-      talks.unshift({ key: msg.key, type: 'talk', name: msg.name, talk: msg.talk});
+      let talks = { key: msg.key, type: 'talk', name: msg.name, talk: msg.talk };
       this.setState({
-        talks: talks
+        talks: [talks, ...this.state.talks]
       })
     })
 

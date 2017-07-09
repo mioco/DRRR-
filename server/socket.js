@@ -33,7 +33,6 @@ io.on('connect', (socket) => {
       })
       io.sockets.emit('connectStatus', send)
     })
-    console.log(USER)
   })
 
   socket.on('talk', (text) => {

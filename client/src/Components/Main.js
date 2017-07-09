@@ -16,7 +16,6 @@ class Main extends Component{
     this.setState({ pDisplay: !this.state.pDisplay })
   }
   render() {
-    console.log(this.props.talks)
     let talks = [
       {
         key: 1,
