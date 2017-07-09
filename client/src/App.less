@@ -34,20 +34,24 @@ button, input, select, textarea {
 .logo-wrapper {
   width: 366px;
   height: 366px;
+    max-width: 366px;
+    max-height: 366px;
   position: relative;
   margin: 50px auto;
   perspective: 500px;
   transform-style: preserve-3d;
   .login-logo {
-    background-image: url('../public/images/login-logo.svg');
+    background-image: url('./public/images/login-logo.svg');
     position: absolute;
     top: 0;
     left: 0;
     margin-top: 34px;
     width: 366px;
     height: 366px;
+    max-width: 366px;
+    max-height: 366px;
     background-repeat: no-repeat;
-    background-size: 366px 366px;
+    background-size: cover;
   }
 }
 
@@ -132,6 +136,8 @@ form .login-form{
       }
       small {
         color: #757577;
+      }
+      small#textCount {
         float: right;
         margin-right: -2rem;
         margin-top: 3em;
@@ -220,7 +226,7 @@ form .login-form{
       background-size: 58px 58px;
       margin: 0 auto;
       text-indent: -99999px;
-      background-image: url('../public/images/avatar01.svg');
+      background-image: url('./public/images/avatar01.svg');
     }
     .name {
       padding-bottom: 12px;
@@ -253,7 +259,7 @@ form .login-form{
       background: -o-linear-gradient(#bee074 0%, #abda68 50%, #84cc58 51%, #4d9744 100%);
       background: linear-gradient(#bee074 0%, #abda68 50%, #84cc58 51%, #4d9744 100%);
       .tail-mask {
-        background-image: url('../public/images/tail-mask.svg');
+        background-image: url('./public/images/tail-mask.svg');
         background-position: -1px -45px;
         width: 105%;
         height: 115%;

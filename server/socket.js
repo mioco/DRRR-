@@ -9,19 +9,31 @@ let sub = (c) => {
 sub();
 
 const io = require('socket.io')();
+const USER = [];
+const USERSOCKET = {};
+
 //socket
 io.on('connect', (socket) => {
   socket.on('connectStatus', (msg) => {
     tobj = JSON.parse(msg);
+    if (tobj.status) {
+      USERSOCKET[tobj.name] = socket;
+      USER.push(tobj.name)
+    }
+    else {
+      USER.splice(USER.indexOf(tobj.name), 1);
+      delete USERSOCKET[tobj.name];
+    }
     client.lpush('talks', msg, (err,res) => {
       send = JSON.stringify({
         key: res,
         name: tobj.name,
-        status: tobj.status
-      })      
+        status: tobj.status,
+        user: USER
+      })
       io.sockets.emit('connectStatus', send)
     })
-    
+    console.log(USER)
   })
 
   socket.on('talk', (text) => {

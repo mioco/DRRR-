@@ -1,4 +1,22 @@
 @media (max-width: 680px) {
+  .notLogin-container {
+    display: flex;
+    flex-direction: column;
+    .logo-wrapper {
+      width: 85vw;
+      height: 85vw;
+      .login-logo {
+        width: 85vw;
+        height: 85vw;
+        margin-top: 34px;
+        background-repeat: no-repeat;
+      }
+    }
+    .login-form label {
+      display: block;
+      margin-bottom: 1rem;
+    }
+  }
   .message-wrap {
     form{
       textarea {
@@ -6,8 +24,8 @@
         margin-right: auto;
       }
       small {
-        margin-right: 0;
-        margin-top: 0;
+        margin-right: 0 !important;
+        margin-top: 0 !important;
       }
     }
   }

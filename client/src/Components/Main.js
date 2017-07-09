@@ -16,6 +16,7 @@ class Main extends Component{
     this.setState({ pDisplay: !this.state.pDisplay })
   }
   render() {
+    console.log(this.props.talks)
     let talks = [
       {
         key: 1,
@@ -52,6 +53,7 @@ class Main extends Component{
             addTalk={ this.props.addTalk }
             privateToggle={ this.privateToggle }
             privateTalks={ this.props.privateTalks }
+            user={ this.props.user }
           />
         </div>
         <Talks talks={ this.props.talks }/>

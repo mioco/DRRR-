@@ -16,7 +16,7 @@ class NotLogin extends Component{
   }
   render() {
     return(
-      <div>
+      <div className="notLogin-container">
         <div className="logo-wrapper">
           <div className="login-logo"></div>
         </div>

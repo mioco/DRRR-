@@ -7,8 +7,10 @@ class Message extends Component{
     this.state = {
       msgCount: 140,
       isFocus: false,
-      lock: true
+      lock: true,
+      user: this.props.user || []
     }
+    console.log('user: ', this.state.user)
   }
   addTalk(e) {
     e.preventDefault();
@@ -18,14 +20,9 @@ class Message extends Component{
         this.refs.msgBox.focus();
         return false;
       }
-      if(this.props.addTalk(msg)) {
-        // let sound = this.refs.sound;
-        // sound.currentTime = 0;
-        // sound.play();
-        // sound.addEventListener('timeupdate', function(){
-        //   if(sound.currentTime>=1) sound.pause();
-        // }, false)    
+      if(this.props.addTalk(msg)) { 
         this.refs.msgForm.reset();
+        this.setState({ msgCount: 140 });
       }
     }else {
       this.refs.msgBox.focus();
@@ -50,7 +47,7 @@ class Message extends Component{
         <div className="container">
           <form action="" ref="msgForm" method="post" onSubmit={ this.addTalk }>
             <textarea ref="msgBox" name="message" className="form-control" onKeyUp={this.inputMsg.bind(this)}></textarea>
-            <small>{ this.state.msgCount }</small>
+            <small id="textCount">{ this.state.msgCount }</small>
             <button type="submit">POST!</button>
           </form>
         </div>

@@ -16,7 +16,8 @@ class App extends Component{
     this.state = {
       isLogin: false,
       talks: [],
-      pTalks: []
+      pTalks: [],
+      user: []
     }
     this.addName = this.addName.bind(this);
     this.addTalk = this.addTalk.bind(this);
@@ -53,9 +54,13 @@ class App extends Component{
     socket.emit('connectStatus', send);
     setTimeout(() => {
       cookie.remove('name');
-      this.setState({ isLogin: false });
+      
+      this.setState({
+        isLogin: false,
+        talks: [],
+        pTalks: []
+      });
     },1000)
-    
   }
 
   componentWillMount() {
@@ -77,7 +82,8 @@ class App extends Component{
         status: msg.status
       });
       this.setState({
-        talks: talks
+        talks: talks,
+        user: msg.user
       })
     })
     socket.on('talk', (msg) => {
@@ -97,6 +103,7 @@ class App extends Component{
       addTalk={ this.addTalk }
       logout={ this.logout }
       name={ cookie.load('name') }
+      user={ this.state.user }
     /> : 
     <NotLogin addName={ this.addName }/>;
     return(
