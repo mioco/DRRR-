@@ -11,12 +11,7 @@ class Main extends Component{
       pDisplay: false
     }
     this.privateToggle = this.privateToggle.bind(this);
-  }
-  privateToggle() {
-    this.setState({ pDisplay: !this.state.pDisplay })
-  }
-  render() {
-    let talks = [
+    this.talks = [
       {
         key: 1,
         name: 'abc',
@@ -28,24 +23,26 @@ class Main extends Component{
         isReaded: true
       }
     ]
-    let privateTalks = [];
-    talks.forEach((pTalk) => {
-      let pDisplay = pTalk.key;
-      privateTalks.push(<Private
-        key={ pTalk.key }
-        pDisplay={ this.state.pDisplay } 
-        talks={ this.props.pTalks }
-        pDisplay={ this.state.pDisplay }
-      />)
-    })
+  }
+  privateToggle() {
+    this.setState({ pDisplay: !this.state.pDisplay })
+  }
+  render() {
     return(
       <div>
-        { privateTalks }
+        {this.talks.map((pTalk) => (
+            <Private
+              key={ pTalk.key }
+              pDisplay={ this.state.pDisplay } 
+              talks={ this.props.pTalks }
+              pDisplay={ this.state.pDisplay }
+            />
+        ))}
         <div className="message-wrap">
           <Header 
             name={ this.props.name } 
             logout={ this.props.logout }
-            privateTalks={ talks }
+            privateTalks={ this.talks }
             privateToggle={ this.privateToggle }
           />
           <Message 

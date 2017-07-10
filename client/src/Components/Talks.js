@@ -19,23 +19,23 @@ class Talks extends Component {
     }
   }
   render() {
-    let nodeList = [];
-    this.props.talks.forEach( (talk) => {
-      switch(talk.type) {
-        case 'connectStatus':
-          let status = talk.status ? '加入' : '离开';
-          nodeList.push(<JoinSystem key={ talk.key } name={ talk.name } status={ status }/>);
-          break;
-        case 'talk':
-          nodeList.push(<Talk key={ talk.key } name={ talk.name } talk={ talk.talk }/>);
-          break;
-        default:
-          break;
-      }
-    })
     return (
       <div className="container">
-        { nodeList }
+        {this.props.talks.map( talk => {
+          let renderEle = null;
+          switch(talk.type) {
+            case 'connectStatus':
+              let status = talk.status ? '加入' : '离开';
+              renderEle = <JoinSystem key={ talk.key } name={ talk.name } status={ status }/>;
+              break;
+            case 'talk':
+              renderEle = <Talk key={ talk.key } name={ talk.name } talk={ talk.talk }/>;
+              break;
+            default:
+              break;
+          }
+          return renderEle;
+        })}
         
         <audio ref='sound' src="/images/effect.mp3" hidden></audio>
       </div>

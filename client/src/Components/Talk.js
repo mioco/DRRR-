@@ -4,7 +4,7 @@ class Talk extends Component {
     super(props);
   }
   talk () {
-    return {__html: this.props.talk.replace('\n', '<br />')};
+    return {__html: this.props.talk.replace(/\n/g, '<br />')};
   }
   render() {
     return (
