@@ -52,13 +52,13 @@ class App extends Component{
       status: 0
     })
     socket.emit('connectStatus', send);
-    cookie.remove('name')
     setTimeout(() => {
       this.setState({
         talks: [],
         pTalks: [],
         isLogin: false
       })
+      cookie.remove('name')
     }, 500);
   }
 
@@ -73,27 +73,19 @@ class App extends Component{
     }
     let talks = this.state.talks;
     socket.on('connectStatus', msg => {
-      msg = JSON.parse(msg);
-      let talk = { 
-        key: msg.key, 
-        type: 'connectStatus', 
-        name: msg.name,
-        status: msg.status
-      };
+      this.handleSocketMsg(msg, 'connectStatus')
       this.setState({
-        talks: [talk, ...this.state.talks],
         user: msg.user
       })
     })
-    socket.on('talk', msg => {
-      msg = JSON.parse(msg);
-      let talks = { key: msg.key, type: 'talk', name: msg.name, talk: msg.talk };
-      this.setState({
-        talks: [talks, ...this.state.talks]
-      })
-    })
-
+    socket.on('talk', msg => this.handleSocketMsg(msg, 'talk'));
   }
+
+  handleSocketMsg (msg, type) {
+    msg = JSON.parse(msg);
+    this.setState({talks: [Object.assign({type: type}, msg), ...this.state.talks]})
+  }
+  
   render() {
     let content = this.state.isLogin ? 
     <Main 
