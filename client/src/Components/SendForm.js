@@ -7,7 +7,7 @@ class Message extends Component{
     this.state = {
       msgCount: 140,
       isFocus: false,
-      lock: true,
+      lock: false,
       user: this.props.user || []
     }
   }
@@ -29,11 +29,8 @@ class Message extends Component{
   }
   inputMsg (e) {
     let count = e.target.value.replace(/\s|\n'/g, '').length;
-    let state = count > 140 ? {
-          lock: true,
-          msgCount: 0
-        } : {
-          lock: false,
+    let state = {
+          lock: count > 140 ? true : false,
           msgCount: 140 - count
         };
     this.setState(state);
@@ -46,7 +43,7 @@ class Message extends Component{
         <div className="container">
           <form action="" ref="msgForm" method="post" onSubmit={ this.addTalk }>
             <textarea ref="msgBox" name="message" className="form-control" onKeyUp={this.inputMsg.bind(this)}></textarea>
-            <small id="textCount">{ this.state.msgCount }</small>
+            <small id="textCount" style={ this.state.lock ? {color: 'red'} : {color: 'black'}}>{ this.state.msgCount }</small>
             <button type="submit">POST!</button>
           </form>
         </div>
