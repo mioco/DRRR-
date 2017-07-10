@@ -15,18 +15,19 @@ class App extends Component{
     super(props);
     this.state = {
       isLogin: false,
-      talks: [],
-      pTalks: [],
+      talks: this.getLocalStorageData('talks'),
+      pTalks: this.getLocalStorageData('pTalks'),
       user: []
     }
     this.addName = this.addName.bind(this);
     this.addTalk = this.addTalk.bind(this);
     this.logout = this.logout.bind(this);
   }
-  initTalks() {
-    let url = '//drrr.osyox.com:3000'
-    fetch()
+
+  getLocalStorageData(key) {
+    return JSON.parse(window.localStorage.getItem(key)) || [];
   }
+
   addTalk(text) {
     socket.emit('talk', JSON.stringify({
       talk: text,
@@ -59,6 +60,7 @@ class App extends Component{
         isLogin: false
       })
       cookie.remove('name')
+      window.localStorage.clear();
     }, 500);
   }
 
@@ -71,7 +73,6 @@ class App extends Component{
         // talks: this.initTalks()
       })
     }
-    let talks = this.state.talks;
     socket.on('connectStatus', msg => {
       this.handleSocketMsg(msg, 'connectStatus')
       this.setState({
@@ -83,9 +84,12 @@ class App extends Component{
 
   handleSocketMsg (msg, type) {
     msg = JSON.parse(msg);
-    this.setState({talks: [Object.assign({type: type}, msg), ...this.state.talks]})
+    let state = [Object.assign({type: type}, msg), ...this.state.talks];
+    this.setState({talks: state}, () => {
+      window.localStorage.setItem('talks', JSON.stringify(state));
+    })
   }
-  
+
   render() {
     let content = this.state.isLogin ? 
     <Main 

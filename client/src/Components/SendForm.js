@@ -46,7 +46,7 @@ class Message extends Component{
         <div className="container">
           <form action="" ref="msgForm" method="post" onSubmit={ this.addTalk }>
             <textarea ref="msgBox" name="message" className="form-control" onKeyUp={this.inputMsg.bind(this)}></textarea>
-            <small id="textCount" style={ this.state.lock ? {color: 'red'} : {color: 'black'}}>{ this.state.msgCount }</small>
+            <small id="textCount" style={ this.state.lock ? {color: 'red'} : {color: '#757577'}}>{ this.state.msgCount }</small>
             <button type="submit">{ this.state.postState }</button>
           </form>
         </div>
