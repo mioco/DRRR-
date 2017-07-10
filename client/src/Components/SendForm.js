@@ -8,7 +8,8 @@ class Message extends Component{
       msgCount: 140,
       isFocus: false,
       lock: false,
-      user: this.props.user || []
+      user: this.props.user || [],
+      postState: 'POST !'
     }
   }
   addTalk(e) {
@@ -19,9 +20,11 @@ class Message extends Component{
         this.refs.msgBox.focus();
         return false;
       }
+      this.setState({ postState: '正在发送' });
       if(this.props.addTalk(msg)) { 
         this.refs.msgForm.reset();
         this.setState({ msgCount: 140 });
+        this.setState({ postState: 'POST !' });
       }
     }else {
       this.refs.msgBox.focus();
@@ -44,7 +47,7 @@ class Message extends Component{
           <form action="" ref="msgForm" method="post" onSubmit={ this.addTalk }>
             <textarea ref="msgBox" name="message" className="form-control" onKeyUp={this.inputMsg.bind(this)}></textarea>
             <small id="textCount" style={ this.state.lock ? {color: 'red'} : {color: 'black'}}>{ this.state.msgCount }</small>
-            <button type="submit">POST!</button>
+            <button type="submit">{ this.state.postState }</button>
           </form>
         </div>
       </div>
